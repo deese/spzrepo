@@ -8,8 +8,9 @@ This setup requires a domain managed by you but you can use it without but you w
 
 ### APT
 
-curl -fsSL "https://apt.spezialk.net/apt/pubkey.gpg" | gpg --dearmor -o /etc/apt/keyrings/spezialk.gpg
+```curl -fsSL "https://apt.spezialk.net/apt/pubkey.gpg" | gpg --dearmor -o /etc/apt/keyrings/spezialk.gpg
 deb [signed-by=/etc/apt/keyrings/spezialk.gpg] https://apt.spezialk.net/apt/ plucky main
+```
 
 ## AWS Access
 
@@ -27,11 +28,11 @@ Refer to the terraform documentation on how to create the account and the keys.
 ### Export the keys
 
 
-gpg --list-keys
+```gpg --list-keys
 export KEYID="GPG KEY ID"
 gpg --export-secret-keys --armor  $KEYID > private.asc
 gpg --export --armor $KEYID > pubkey.gpg
-
+```
 
 ### Import a private key
 

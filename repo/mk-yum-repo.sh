@@ -36,6 +36,10 @@ gpg --default-key "$GPG_KEY_ID" --detach-sign --armor "$REPO_MD"
 # (opcional) generar también archivo `.asc` plano no-armored
 gpg --default-key "$GPG_KEY_ID" --detach-sign "$REPO_MD"
 
+if [ -f $GPG_PUB ]; then
+        cp $GPG_PUB "$REPO_DIR/"
+fi
+
 # Subir a S3
 echo "Sync to S3..."
 aws s3 sync "$RPM_DIR/" "s3://$BUCKET/$S3_PATH/" --delete
