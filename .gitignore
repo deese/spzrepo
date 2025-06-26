@@ -1,0 +1,10 @@
+**/.terraform
+*.tfstate
+apt-repo/
+yum-repo/
+*.gpg
+*.asc
+.terraform.lock.hcl
+.env
+*.tfvars
+*.backup
