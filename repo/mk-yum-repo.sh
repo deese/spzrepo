@@ -37,7 +37,7 @@ gpg --default-key "$GPG_KEY_ID" --detach-sign --armor "$REPO_MD"
 gpg --default-key "$GPG_KEY_ID" --detach-sign "$REPO_MD"
 
 if [ -f $GPG_PUB ]; then
-        cp $GPG_PUB "$REPO_DIR/"
+        cp $GPG_PUB "$REPO_DIR/RPM-GPG-KEY-$RPM_REPONAME"
 fi
 
 # Subir a S3

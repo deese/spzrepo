@@ -14,3 +14,11 @@ variable "acm_cert_arn" {
   description = "ARN of the SSL cert to be used on cloudfront"
 }
 
+variable "sns_topic_budget_alarm" {
+  description = "SNS Topic for the Budget Alarm trigger"
+  default     = "budget-alerts-topic"
+}
+
+variable "notification_email" {
+  description = "Email to send the notification from the lambda"
+}
