@@ -39,3 +39,10 @@ gpg --export --armor $KEYID > pubkey.gpg
 ``` gpg --import private.asc ```
 
 
+## AWS Budget
+
+The solution creates an SNS topic that can be used to receive budget alarms and will trigger a lambda to stop the cloudfront distribution. This is helpful to avoid massive expenses due to an attack or miss-configuration. 
+
+Terraform does not support budget alerts so you have to create it manually and point the action to the SNS topic. 
+
+The email account needs to be verified before being able to receive the notifications. 
