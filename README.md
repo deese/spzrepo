@@ -46,3 +46,11 @@ The solution creates an SNS topic that can be used to receive budget alarms and 
 Terraform does not support budget alerts so you have to create it manually and point the action to the SNS topic. 
 
 The email account needs to be verified before being able to receive the notifications. 
+
+
+TODO
+====
+
+- Add an update function to avoid re-creating all the repo when a new file is added.
+- Provida a REST API to add/remove files (depends on the update function)
+

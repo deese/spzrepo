@@ -1,0 +1,8 @@
+APT_REPO_DIR="apt-repo"
+APT_S3_PATH="apt"
+ARCH="amd64"
+APT_DIST="plucky"
+GPG_PUB="pubkey.gpg"
+RPM_REPO_DIR="yum-repo"
+RPM_DIR="$RPM_REPO_DIR/packages"
+RPM_S3_PATH="yum"

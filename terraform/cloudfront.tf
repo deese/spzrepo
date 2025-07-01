@@ -20,6 +20,7 @@ resource "aws_cloudfront_distribution" "apt_cf" {
 
   aliases = [var.domain_name]
 
+
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
@@ -49,5 +50,43 @@ resource "aws_cloudfront_distribution" "apt_cf" {
   tags = {
     Name = "APT CloudFront"
   }
-}
 
+  ordered_cache_behavior {
+    path_pattern           = "*.deb"
+    target_origin_id       = "aptRepoS3Origin"
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    min_ttl     = 0
+    default_ttl = 0
+    max_ttl     = 0
+  }
+
+  # 👇 another for .gz files
+  ordered_cache_behavior {
+    path_pattern           = "*.gz"
+    target_origin_id       = "aptRepoS3Origin"
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    min_ttl     = 0
+    default_ttl = 0
+    max_ttl     = 0
+  }
+}

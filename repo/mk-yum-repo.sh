@@ -4,16 +4,12 @@ set -euo pipefail
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
 source "$SCRIPT_DIR/functions.sh"
-
-# Configuración
-REPO_DIR="yum-repo"
-RPM_DIR="$REPO_DIR/packages"
-S3_PATH="yum"
+source "$SCRIPT_DIR/environ.sh"
 
 read_env
 
 # Limpieza previa
-rm -rf "$REPO_DIR"
+rm -rf "$RPM_REPO_DIR"
 mkdir -p "$RPM_DIR"
 
 # Copiar RPMs al directorio del repo
@@ -37,12 +33,12 @@ gpg --default-key "$GPG_KEY_ID" --detach-sign --armor "$REPO_MD"
 gpg --default-key "$GPG_KEY_ID" --detach-sign "$REPO_MD"
 
 if [ -f $GPG_PUB ]; then
-        cp $GPG_PUB "$REPO_DIR/RPM-GPG-KEY-$RPM_REPONAME"
+        cp $GPG_PUB "$RPM_REPO_DIR/RPM-GPG-KEY-$RPM_REPONAME"
 fi
 
 # Subir a S3
 echo "Sync to S3..."
-aws s3 sync "$RPM_DIR/" "s3://$BUCKET/$S3_PATH/" --delete
+aws s3 sync "$RPM_DIR/" "s3://$BUCKET/$RPM_S3_PATH/" --delete
 
-echo "✅ YUM Repository created and uploaded to s3://$BUCKET/$S3_PATH/"
+echo "✅ YUM Repository created and uploaded to s3://$BUCKET/$RPM_S3_PATH/"
 
