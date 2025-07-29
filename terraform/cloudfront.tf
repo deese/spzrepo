@@ -70,6 +70,26 @@ resource "aws_cloudfront_distribution" "apt_cf" {
     max_ttl     = 0
   }
 
+  ordered_cache_behavior {
+    path_pattern           = "*/repodata/*"
+    target_origin_id       = "aptRepoS3Origin"
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    min_ttl     = 0
+    default_ttl = 0
+    max_ttl     = 0
+  }
+
+
   # 👇 another for .gz files
   ordered_cache_behavior {
     path_pattern           = "*.gz"
